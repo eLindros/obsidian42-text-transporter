@@ -137,14 +137,14 @@ export async function pushBlockReferenceToAnotherFile(plugin: ThePlugin): Promis
                 startLine = f.details[0].lineEnd;
         }
         const results = await addBlockRefsToSelection(plugin, false);
-        let blockRefs = "";
+        let blockRefs = "- ";
         const fileName = getActiveView(plugin).file.path;
         if (results.length > 0) {
             for (const ref of results)
                 blockRefs += `![[${fileName}${ref}]]\n`;
             blockRefs = blockRefs.substring(0, blockRefs.length - 1);
             fileContentsArray.splice(Number(startLine) + 1, 0, { display: blockRefs, info: "" });
-            let newContents = "- ";
+            let newContents = "";
             for (const line of fileContentsArray)
                 newContents += line.display + "\n";
             newContents = newContents.substring(0, newContents.length - 1);
